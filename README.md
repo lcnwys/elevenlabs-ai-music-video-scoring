@@ -1,4 +1,4 @@
-# ElevenLabs AI Music & Video Scoring
+# ElevenLabs-AI-Music-Video-Scoring
 
 **Turn “I want this feeling” into a musical direction you can hear and refine.**
 
