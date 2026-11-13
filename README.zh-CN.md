@@ -1,4 +1,4 @@
-# MusePilot · ElevenLabs Music Director
+# ElevenLabs AI Music & Video Scoring
 
 **从“想要一种感觉”，到可以试听、修改和交付的音乐草案。**
 
