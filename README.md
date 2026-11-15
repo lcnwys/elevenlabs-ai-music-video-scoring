@@ -1,53 +1,81 @@
 # ElevenLabs-AI-Music-Video-Scoring
 
-**Turn “I want this feeling” into a musical direction you can hear and refine.**
+**AI 视频配乐与漫剧音乐导演｜把“这段 AI 漫剧想要什么情绪”，整理成可以试听、修改和复用的配乐方案。**
 
-English · [简体中文](README.zh-CN.md) · Originally Eleven Music Director v0.1
+简体中文（默认） · [English](README.en.md) · 原项目名称 Eleven Music Director v0.1
 
-MusePilot is a locally hosted AI music workbench for video creators. Describe an emotion and a pace, develop a musical brief, and generate audio with ElevenLabs. Start with a prompt, edit a structured composition plan, or score an existing video.
+MusePilot 是面向视频创作者的本地 AI 音乐工作台。用自然语言描述情绪和节奏，先拿到创作方案，再用 ElevenLabs 生成音乐。你可以快速试一段，也可以编辑结构化编曲计划，或者直接为视频生成配乐。
 
-## Creative starting points
+面向中国境内的 AI 视频创作者、AI 漫剧团队、动态漫画作者、短剧后期与独立开发者。用可运行、可二次开发的小工具，探索 ElevenLabs 的配乐、音效、语音与译配能力。画面可来自你已有的拍摄、动画或 AI 视频流程；本工具负责其文档所述的声音环节。
 
-| Need | Suggested workflow |
-|---|---|
-| A motion-comic character entrance | Develop instrumentation, tempo, and direction from character and story context |
-| A short-drama teaser / design reel | Audition multiple directions before choosing one |
-| A product film / spoken advertisement | Create an instrumental bed with space for speech |
-| An existing video edit | Upload footage with description, tags, SFX, and stem options |
-| More arrangement control | Inspect and edit Composition Plan JSON before generation |
+中文文档优先，界面目前以中文为主。可从内置样例、离线草案或模拟模式开始；具体可用方式见下文。
 
-## Three routes to music
+## AI 视频与漫剧实战场景
 
-| Route | Input → output | Service |
+| 你的创作任务 | 建议路线 | 可以留下的资源 |
 |---|---|---|
-| Quick music | Prompt → generated audio | ElevenLabs Music |
-| Structured plan | Prompt → Composition Plan → manual edits → audio | ElevenLabs Music Plan + Music |
-| Video soundtrack | 1–10 videos + settings → audio or stem ZIP | ElevenLabs Video-to-Music |
+| 给 AI 短片寻找音乐方向 | 用文字分别描述三种情绪，生成后逐一试听 | 提示词、试听评价和创作草案 |
+| 做系列 AI 漫剧的角色主题 | 在提示词里重复使用人物情绪、配器与风格描述，逐次试听筛选 | 可复用的角色配乐描述；不保证每次生成一致 |
+| 给剪好的视频配乐 | 上传视频，补充节奏、情绪、是否需要音效等信息 | 生成音频或分轨 ZIP |
+| 想控制开场、发展与结尾 | 先生成并人工修改 Composition Plan，再生成音乐 | 可编辑的计划 JSON |
 
-An optional **AI music director** uses OpenAI to turn your idea and explicitly supplied context into structured suggestions. It does not read your ChatGPT conversations automatically. Without an OpenAI key, standard music, official plan generation, and video scoring remain available. Offline templates are preset drafts rather than LLM reasoning.
+### 从中文需求到音乐方案
 
-> The application UI is currently primarily in Chinese; this README provides English setup and workflow instructions.
+> 为一段 30 秒的 AI 漫剧预告做纯器乐配乐：前 10 秒交代人物，随后逐渐紧张，最后留出一句关键台词的空间。以低音弦乐和克制打击乐为主，不需要人声演唱。
 
-## Stack & requirements
+可以先用 AI 导演整理建议，再修改最终提示词；也可以自行撰写提示词直接生成。AI 导演是可选的 OpenAI 功能，音乐生成由 ElevenLabs 提供。段落与时间安排仍需按实际生成结果复核。
 
-| Layer | Implementation |
+## 谁可以用它
+
+| 创作需求 | 使用路线 |
 |---|---|
-| Frontend | Single-file vanilla HTML / CSS / JavaScript, localStorage draft library |
-| Backend | Python, FastAPI, Uvicorn, Pydantic |
-| API client | HTTPX; ElevenLabs Music; optional OpenAI Responses API |
-| Video validation | ffprobe duration checks; FFmpeg tools recommended |
-| Storage | System temporary files for uploads; current-browser storage for drafts and feedback |
-| Recommended setup | Python 3.11 / 3.12, desktop browser; no external database |
+| 漫剧角色登场 / 情绪场面 | 从人物状态和剧情节奏出发，整理配器、速度和音乐方向 |
+| 短剧预告 / 设计作品集 | 先做多个音乐方向，试听后再收敛 |
+| 产品展示 / 广告口播 | 生成留出人声空间的器乐配乐 |
+| 已剪辑的视频 | 上传视频并设置描述、标签、音效和分轨选项 |
+| 更精细的创作控制 | 检查并修改 Composition Plan JSON 后生成 |
 
-## Quick start
+## 三条创作路线
 
-Download or clone the repository and enter its root, containing `server.py` and `requirements.txt`. The existing folder is named `eleven-music-director-v1`.
+| 路线 | 输入 → 输出 | 依赖 |
+|---|---|---|
+| 快速音乐 | 提示词 → 生成音频 | ElevenLabs Music |
+| 专业计划 | 提示词 → Composition Plan → 手动编辑 → 生成音频 | ElevenLabs Music Plan + Music |
+| 视频配乐 | 1–10 个视频 + 配乐参数 → 音频或分轨 ZIP | ElevenLabs Video-to-Music |
 
-### Install dependencies
+可选的 **AI 音乐导演**使用 OpenAI 将想法和你主动填写的上下文整理成结构化建议。它不会自动读取 ChatGPT 会话；没有 OpenAI Key 时，普通音乐、官方计划生成和视频配乐仍可使用。离线模板是预设草案，不等于 LLM 推理。
 
-Use Python **3.11 or 3.12** and a separate virtual environment for this project. This is a Python application: **Node.js, npm, and an external database are not required**. Use a recent Chrome, Edge, Firefox, or Safari; media decoding depends on the browser.
+界面目前以中文为主；本仓库提供中英文文档，尚未提供完整英文界面。
 
-macOS / Linux:
+## 技术栈与环境
+
+| 层 | 实现 |
+|---|---|
+| 前端 | 单文件原生 HTML / CSS / JavaScript，浏览器 localStorage 草案库 |
+| 后端 | Python、FastAPI、Uvicorn、Pydantic |
+| API 通信 | HTTPX；ElevenLabs Music；可选 OpenAI Responses API |
+| 视频检查 | ffprobe 检查时长；建议安装 FFmpeg 工具集 |
+| 存储 | 上传视频暂存在系统临时目录；草案和反馈保存在当前浏览器 |
+| 推荐环境 | Python 3.11 / 3.12、桌面浏览器；无外部数据库 |
+
+## 快速开始
+
+下载或克隆仓库，进入包含 `server.py` 和 `requirements.txt` 的根目录。现有文件夹名称为 `eleven-music-director-v1`。
+
+### 下载项目
+
+```bash
+git clone https://github.com/lcnwys/elevenlabs-ai-music-video-scoring.git
+cd elevenlabs-ai-music-video-scoring
+```
+
+也可在仓库页面选择 Code → Download ZIP，解压后进入包含 `requirements.txt` 的目录。安装命令均在该目录执行。
+
+### 安装依赖
+
+建议 Python **3.11 或 3.12**，并为每个项目单独建立虚拟环境。本项目是 Python 应用，**不需要 Node.js、npm 或独立数据库**。建议使用较新的 Chrome、Edge、Firefox 或 Safari；实际媒体解码能力取决于浏览器。
+
+macOS / Linux：
 
 ```bash
 python3 -m venv .venv
@@ -55,7 +83,7 @@ source .venv/bin/activate
 python -m pip install -r requirements.txt
 ```
 
-Windows PowerShell:
+Windows PowerShell：
 
 ```powershell
 py -3.11 -m venv .venv
@@ -63,134 +91,176 @@ py -3.11 -m venv .venv
 python -m pip install -r requirements.txt
 ```
 
-If PowerShell blocks activation, use `.\.venv\Scripts\python.exe -m pip install -r requirements.txt` directly and use that Python executable for subsequent commands.
+如果 PowerShell 的执行策略不允许激活，可直接使用 `.\.venv\Scripts\python.exe -m pip install -r requirements.txt`，后续启动命令也使用该 Python 路径。
 
-Install FFmpeg, for example:
+FFmpeg 安装示例：
 
 ```bash
-# macOS with Homebrew
+# macOS（已安装 Homebrew）
 brew install ffmpeg
 # Ubuntu / Debian
 sudo apt-get update
 sudo apt-get install ffmpeg
 ```
 
-On Windows, install FFmpeg and add its `bin` directory to PATH. Open a new terminal and check:
+Windows 请安装 FFmpeg 并将其 `bin` 目录加入 PATH。新开终端后确认：
 
 ```bash
 ffmpeg -version
 ffprobe -version
 ```
 
-### Configure `.env`
+### 配置 `.env`
 
-macOS / Linux: `cp .env.example .env`. PowerShell: `Copy-Item .env.example .env`. Edit locally:
+macOS / Linux：`cp .env.example .env`；PowerShell：`Copy-Item .env.example .env`。用本机编辑器填写：
 
 ```dotenv
 ELEVENLABS_API_KEY=<your-elevenlabs-api-key>
-# Optional: only needed for the AI director
+# 可选：仅 AI 导演需要
 OPENAI_API_KEY=<your-openai-api-key>
 OPENAI_MODEL=gpt-5.4-mini
 ```
 
-Leave `OPENAI_API_KEY` empty if you only need ElevenLabs. `OPENAI_MODEL` must be available to your account and support the structured-output request used here; adjust it for your account. Existing environment variables take precedence over `.env`.
+仅使用 ElevenLabs 时，把 `OPENAI_API_KEY` 留空即可。`OPENAI_MODEL` 取值需是账号可访问且支持当前结构化输出请求的模型；可按实际账号修改。程序只在相应环境变量尚未设置时读取 `.env`，终端环境变量优先。
 
 ```bash
 python -m uvicorn server:app --host 127.0.0.1 --port 8765
 ```
 
-Open **http://127.0.0.1:8765**. Opening `index.html` directly provides offline templates, plan examples, and draft records, but cannot make live AI generation requests.
+打开 **http://127.0.0.1:8765**。直接双击 `index.html` 可编辑离线模板、计划示例与草案记录，但不能发起真实 AI 生成。
 
-## A first session
+## 第一次创作可以这样做
 
-1. Describe a 30-second suspense score for a motion-comic reveal.
-2. Optionally ask the AI director for a brief; review mood, instruments, rhythm, and duration.
-3. Edit the final prompt or Composition Plan, generate, and listen.
-4. Save your feedback and creative version in the draft library; download audio separately.
-5. Export draft JSON for your records. Video scoring returns audio or a stem ZIP, **not a soundtrack-composited MP4**.
+1. 输入“为 30 秒悬疑漫剧做器乐配乐，开场克制，结尾揭示反转”。
+2. 可选使用 AI 导演整理方案；检查情绪、乐器、节奏和时长。
+3. 编辑最终提示词或 Composition Plan，点击生成并试听。
+4. 把评价与创作版本保存在草案库；音频需要单独下载。
+5. 导出草案 JSON，保留你的创作过程。视频路线输出的是音乐或音轨 ZIP，**不是已合成配乐的 MP4**。
 
-Example prompt:
+示例提示词：
 
 > Cinematic instrumental for a 30-second motion-comic teaser. Sparse piano and restrained low strings under dialogue. A short pause before the reveal, then a tense final rise. No vocals; keep the midrange open for speech.
 
-## Configuration, limits & data flow
+## 配置、限制与数据流
 
-| Item | Current behavior |
+| 项目 | 当前行为 |
 |---|---|
-| Prompt-based music duration | Application validates 3–600 seconds; API/account restrictions may further limit it |
-| Video uploads | 1–10 videos, up to 200 MB combined; ffprobe enforces a combined 600-second limit when installed |
-| Without ffprobe | Duration validation relies on the upstream service; install it for real footage |
-| Video formats | MP4 / MOV / WebM / M4V / MKV |
-| Draft persistence | Latest 100 records in current-browser localStorage; export before clearing browser data |
-| Temporary videos | Removed after a request; abrupt process termination can leave files behind |
+| 普通音乐时长 | 应用校验为 3–600 秒，实际可用范围仍受接口和账号限制 |
+| 视频上传 | 1–10 个视频，合计至多 200 MB；有 ffprobe 时校验合计不超过 600 秒 |
+| 无 ffprobe | 依赖上游时长校验；建议安装后再处理真实素材 |
+| 视频格式 | MP4 / MOV / WebM / M4V / MKV |
+| 草案持久化 | 当前浏览器 localStorage，保留最近 100 条；清理浏览器数据会丢失，建议导出 |
+| 临时视频 | 请求结束后执行删除；进程异常终止仍可能留下临时文件 |
 
-Music prompts, plans, and video-scoring inputs go to ElevenLabs. Your idea and supplied context go to OpenAI only when you use the AI director. Keys are read on the backend from the environment / local `.env` and sent in HTTPS authentication headers to the relevant provider; they are not returned to the browser or stored in drafts. Live generation can incur separate ElevenLabs and OpenAI charges. No upstream zero-retention guarantee is made.
+音乐提示词、编曲计划和视频配乐输入发送给 ElevenLabs。只有主动使用 AI 导演时，你填写的想法与上下文才会发送给 OpenAI。API Key 从后端环境 / 本机 `.env` 读取，通过 HTTPS 认证头发给对应服务商；不返回给浏览器，也不写入草案。真实生成可能分别产生 ElevenLabs 和 OpenAI 费用，不承诺上游零留存。
 
-This is a music ideation and generation workbench, not a complete DAW. It does not provide automatic speech ducking, frame-accurate music alignment, finished-video rendering, voice cloning, or team accounts. Check applicable terms and rights for lyrics, inputs, and outputs.
+这是音乐构思与生成工具，不是完整 DAW；不包含自动人声避让、镜头级音乐对齐、视频成片合成、声音克隆或团队账号。歌词、素材、生成内容的使用权需按相关服务条款与实际授权核实。
 
-## Development & endpoints
+## 开发与接口
 
-| Path | Role |
+| 路径 | 用途 |
 |---|---|
-| `server.py` | Local service, upload checks, and Music API proxy |
-| `director.py` | Optional OpenAI creative brief |
-| `music_core.py` | Model, duration, prompt, and plan validation |
-| `index.html` | Workbench and local draft library |
-| `skill/` | Director prompts, skill definition, and recipes |
+| `server.py` | 本地 Web 服务、上传校验和 Music API 代理 |
+| `director.py` | 可选 OpenAI 导演方案生成 |
+| `music_core.py` | 模型、时长、提示词和计划校验 |
+| `index.html` | 工作台界面和本地草案库 |
+| `skill/` | 音乐导演提示词、技能定义与参考配方 |
 
-| Local endpoint | Purpose |
+| 本地接口 | 用途 |
 |---|---|
-| `GET /api/status` | Configuration status without keys |
-| `POST /api/brief` | Optional AI director brief |
-| `POST /api/plan` | Official structured music plan |
-| `POST /api/compose` | Audio from a prompt or plan |
-| `POST /api/video` | Multipart video-scoring request |
+| `GET /api/status` | 连接配置状态，不返回密钥 |
+| `POST /api/brief` | 可选 AI 导演方案 |
+| `POST /api/plan` | 官方结构化音乐计划 |
+| `POST /api/compose` | 由提示词或计划生成音频 |
+| `POST /api/video` | multipart 视频配乐请求 |
 
-Developer checks: `python -m pytest -q`. Tests do not establish live-account access to every model.
+开发检查：`python -m pytest -q`。测试不代表真实账号对所有模型有权限。
 
-## References
+## 参考
 
 - [ElevenLabs Composition Plans](https://elevenlabs.io/docs/eleven-api/guides/how-to/music/composition-plans)
 - [ElevenLabs Video-to-Music](https://elevenlabs.io/docs/api-reference/music/video-to-music)
-- Local [setup and capability notes](START_HERE.html)
+- 本地 [安装与能力说明](START_HERE.html)
 
-## Local deployment & development
+## 本地部署与二次开发
 
-The commands above start a **single-user service on your own machine**. Leave the terminal running and press `Ctrl+C` to stop it. To restart, enter the same directory, activate the same environment, and run the start command again. If another project uses the port, stop it or choose a different `--port`.
+以上命令启动的是**本机单用户服务**。终端保持运行即可使用，按 `Ctrl+C` 停止；重启时进入同一目录，激活同一虚拟环境，再执行启动命令。不同项目使用相同端口时，请停止前一个服务，或把 `--port` 改为未占用端口。
 
-A process manager can keep the same Uvicorn command running. Before offering this service to a team or the public, add authentication, user isolation, a job queue, usage limits, redacted logs, and file cleanup. These production deployment features are not implemented here.
+如需让服务长期运行，可由进程管理器管理同一条 Uvicorn 命令。正式向团队或公网提供服务之前，需要增加身份认证、用户数据隔离、任务队列、用量限制、日志脱敏和文件清理。当前仓库没有实现这些生产部署能力。
 
-## Troubleshooting
+## 常见问题
 
-| Symptom | What to check |
+| 问题 | 排查方向 |
 |---|---|
-| Missing `uvicorn` or Python module | Activate the virtual environment; run `python -m pip install -r requirements.txt` from the project root |
-| FFmpeg missing / media probe fails | Check `ffmpeg -version` and `ffprobe -version`; reopen the terminal after installation |
-| API returns 401 / 403 | Check the local key, product permissions, and account status; never paste a full key into an issue |
-| API returns 429 / generation times out | Check quota, concurrency, and network access; start with a short clip and inspect upstream job state before resubmitting |
-| Preview does not play | Check browser codec support; download the result and try a local player |
-| Environment changes do not take effect | Restart Uvicorn from the terminal where the variables are configured |
+| 找不到 `uvicorn` 或模块 | 确认已激活虚拟环境，并在项目根目录执行 `python -m pip install -r requirements.txt` |
+| 找不到 FFmpeg / 无法读取媒体 | 检查 `ffmpeg -version`、`ffprobe -version`，安装后重启终端 |
+| API 提示 401 / 403 | 检查本机 Key、对应产品权限和账号状态；不要把完整 Key 发到 Issue |
+| API 提示 429 / 生成超时 | 检查额度、并发与网络；先用短素材验证，确认上游任务状态后再决定是否重新提交 |
+| 浏览器无法播放 | 检查浏览器支持的封装与编码；可以下载到本地播放器检查 |
+| 修改环境变量后仍未生效 | 在配置所在终端重启 Uvicorn |
 
-## Contributing
+## 参与改进
 
-Reproduction steps, sanitized errors, and feature suggestions are welcome. A concrete case—music masking comic dialogue, subtitle drift after dubbing, or an unsuitable musical mood—is especially useful. Include OS, Python / FFmpeg versions, media format, and a minimal workflow. Confirm sharing rights before providing real media.
+欢迎提交复现步骤、已脱敏报错和功能建议。漫剧对白被音乐遮住、译配字幕偏移、音乐情绪不匹配等具体场景，比单纯写“效果不好”更有帮助。请写明系统、Python / FFmpeg 版本、输入格式和最短复现流程；真实素材请先确认分享权限。
 
-Code is provided under the [MIT License](LICENSE). API terms, generated-content rights, media-asset rights, and dependency licenses apply separately.
+代码采用 [MIT License](LICENSE)。API 使用、生成内容、音视频素材与依赖软件的授权另行适用。
 
-## ElevenLabs integration & pricing inquiries
+## AI 视频与漫剧声音工具箱
 
-Maintained by an independent developer, this project gives motion-comic teams, video creators, and builders a practical way to explore ElevenLabs.
+这四个项目可以独立使用，也可以通过导出文件串联。当前需要手动传递文件，并非已实现的一键工作流。
 
-Working on **motion-comic dubbing, short-drama localization, video soundtracks, sound effects, voice products, or batch API integration**? Get in touch to discuss product fit, workflow design, and integration. I can also offer **competitively priced ElevenLabs solutions**; availability, terms, and pricing depend on your requirements and an individual quotation.
+| 你现在遇到的问题 | 对应开源项目 | 主要交付 |
+|---|---|---|
+| 有画面，缺音乐方向 | [AI 音乐导演与视频配乐](https://github.com/lcnwys/elevenlabs-ai-music-video-scoring) | 音乐、编曲计划、创作草案 |
+| 想编排配乐、音效和对白关系 | [AI 视频音频编辑器](https://github.com/lcnwys/elevenlabs-video-audio-studio) | 音频分轨、混音 WAV、工程 JSON |
+| BGM 压住了角色台词 | [Auto Ducking 人声避让](https://github.com/lcnwys/elevenlabs-auto-ducking-video-audio) | 人声避让后的混音视频 |
+| 中文视频需要其他语言版本 | [AI 视频翻译与配音](https://github.com/lcnwys/elevenlabs-video-dubbing-translation) | 译配视频、音频、上游可用字幕 |
 
-**Email: [lcnwys@gmail.com](mailto:lcnwys@gmail.com)**
+例如：完成 AI 画面与对白 → 用音乐导演探索配乐 → 用音频编辑器编排音效 → 导出给剪映等软件完成成片；有其他语言需求时，再单独制作译配版本。
 
-For a useful first conversation, include:
+## 配套学习资源与二次开发
 
-- Your content or product type and a short, sanitized description of the requirement.
-- Estimated monthly audio/video minutes, target languages, team size, and API needs.
-- Whether you are testing a pilot or preparing a launch.
+下面优先提供仓库内可读的源码、配置和样例，方便国内 AI 视频创作者先体验，再逐步理解技术。需要调用真实 AI 能力时，本机网络须能访问对应的 ElevenLabs API；AI 导演还需访问 OpenAI API。项目不内置网络代理或共享 Key。
 
-Do not send API keys, passwords, or unauthorized customer media by email or in public issues. Use issues for product feedback and email for commercial inquiries.
+| 项目内资源 | 能学到 / 复用什么 |
+|---|---|
+| [音乐导演技能定义](skill/SKILL.md) | 创作需求如何组织成音乐工作流 |
+| [导演系统提示词](skill/SYSTEM_PROMPT.txt) | 研究并调整音乐建议的组织方式 |
+| [接口配方](skill/references/api-recipes.md) | Music 请求示例；使用前仍需对照当前官方接口 |
+| [创意参考](skill/references/creative-playbook.md) | 组织风格、情绪与创作描述 |
+| [音乐校验逻辑](music_core.py) | 为自研工具复用或改造输入校验 |
 
-> An independent community project, not an official ElevenLabs product. Inquiries and quotations do not imply official endorsement. ElevenLabs names and trademarks belong to their respective owners.
+它提供音乐工作台与提示词工作流，不代表训练了自有音乐生成模型。
+
+### 官方接口参考
+
+| 你想了解什么 | 参考资料 |
+|---|---|
+| 让视频生成音乐 | [ElevenLabs Video-to-Music（英文）](https://elevenlabs.io/docs/api-reference/music/video-to-music) |
+| 编辑音乐段落与计划 | [ElevenLabs Composition Plans（英文）](https://elevenlabs.io/docs/eleven-api/guides/how-to/music/composition-plans) |
+| 提取讲话与词级时间戳 | [ElevenLabs Scribe（英文）](https://elevenlabs.io/docs/api-reference/speech-to-text/convert) |
+| 创建翻译配音项目 | [ElevenLabs Dubbing（英文）](https://elevenlabs.io/docs/api-reference/dubbing/create-project) |
+
+### 一起补充中文创作案例
+
+欢迎在 Issue 中分享已脱敏的 AI 视频、漫剧、动态漫画或短剧声音问题，也欢迎提交经授权的短样片、中文提示词、安装排障和代码改进。建议注明：内容类型、系统环境、素材时长、遇到的问题及期望效果。公开分享前请去掉 Key、私人账号与客户敏感信息。
+
+可以从“我遇到了什么具体问题”开始，不需要先理解所有音频技术。优先从上表中的实际源码、配置与示例入手，再逐步补充适合你的制作流程。
+
+## ElevenLabs 接入与价格咨询
+
+这个项目由独立开发者维护，希望帮助国内 AI 视频、AI 漫剧、动态漫画和短剧制作团队，把声音环节做成可试听、可修改、可复用的实际工作流。
+
+如果你正在做**漫剧配音、短剧出海、视频配乐、音效制作、语音产品或批量 API 集成**，欢迎联系我，一起评估适合的产品、工作流和接入方式。我也可以提供**有价格优势的 ElevenLabs 方案报价**，具体方案、适用条件和价格以实际需求及单独报价为准。
+
+**咨询邮箱：[lcnwys@gmail.com](mailto:lcnwys@gmail.com)**
+
+为了更快给出建议，邮件中可以写明：
+
+- 你在做什么内容或产品，以及一段已脱敏的需求说明。
+- 每月预计视频/音频分钟数、目标语言、团队规模和是否需要 API。
+- 希望先做样片验证，还是正在准备上线。
+
+请不要在邮件或公开 Issue 中发送 API Key、账号密码或未获授权的客户素材。功能问题适合提 Issue；商务和价格咨询请发邮件。
+
+> 这是独立社区项目，并非 ElevenLabs 官方产品。咨询和报价也不代表官方背书；ElevenLabs 的名称和商标归其权利人所有。
